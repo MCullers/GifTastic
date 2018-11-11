@@ -26,28 +26,29 @@ function displayAnimalInfo() {
 
           var animalImage = $("<img>");
 
-          animalImage.attr("src", results[i].images.fixed_height_still.url);
-
+          animalImage.attr('src', results[i].images.fixed_height_still.url).attr('data-still', results[i].images.fixed_height_still.url).attr('data-animate', results[i].images.fixed_height.url).attr('data-state', 'still').addClass('gif');
+          
           animalDiv.append(animalImage);
           animalDiv.append(p);
 
           $("#animal-view").prepend(animalDiv);
         }
+        $(".gif").on("click", function() {
+      
+          var state = $(this).attr("data-state");
+          
+          if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+          } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+          }
+        });    
       })
     }
 
-    $("<img>").on("click", function() {
-      
-      var state = $(this).attr("data-state");
-      
-      if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
-    });    
+
 
 function renderButtons() {
 
